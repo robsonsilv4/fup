@@ -22,11 +22,18 @@ fps = pygame.time.Clock()
 
 # dados
 pause = True
-usuario = {
+jogador1 = {
     "pos": {
         "x": 40, "y": 300}, "vel": {
             "x": 0, "y": 0}, "raio": 15, "cor": (
                 0, 0, 255)}
+
+jogador2 = {
+    "pos": {
+        "x": 760, "y": 300}, "vel": {
+            "x": 0, "y": 0}, "raio": 15, "cor": (
+                0, 0, 255)}
+
 inimigos = []
 for i in range(5):
     inimigos.append({"pos": {"x": randint(50, 750), "y": 50}, "vel": {
@@ -60,7 +67,7 @@ def salvarBala(arquivo, bala):
 def salvarArquivo():
     arquivo = open("checkpoint.fup", "w")
     arquivo.write(str(pause) + "\n")
-    salvarPersonagem(arquivo, usuario)
+    salvarPersonagem(arquivo, jogador1)
     arquivo.write(str(len(inimigos)) + "\n")
     for ini in inimigos:
         salvarPersonagem(arquivo, ini)
@@ -79,18 +86,18 @@ def carregarArquivo():
     # pause
     global pause
     pause = True
-    #pause = bool(linhas[0])
+    # pause = bool(linhas[0])
     # print type(pause)
     # print pause
     # print linhas[0]
-    # usuario
-    infoUsuario = map(int, linhas[1].split())
-    usuario["pos"]["x"] = infoUsuario[0]
-    usuario["pos"]["y"] = infoUsuario[1]
-    usuario["vel"]["x"] = infoUsuario[2]
-    usuario["vel"]["y"] = infoUsuario[3]
-    usuario["raio"] = infoUsuario[4]
-    usuario["cor"] = (infoUsuario[5], infoUsuario[6], infoUsuario[7])
+    # jogador1
+    infojogador1 = map(int, linhas[1].split())
+    jogador1["pos"]["x"] = infojogador1[0]
+    jogador1["pos"]["y"] = infojogador1[1]
+    jogador1["vel"]["x"] = infojogador1[2]
+    jogador1["vel"]["y"] = infojogador1[3]
+    jogador1["raio"] = infojogador1[4]
+    jogador1["cor"] = (infojogador1[5], infojogador1[6], infojogador1[7])
     # inimigos
     nIni = int(linhas[2])
     del inimigos[:]
@@ -235,9 +242,11 @@ tempo = 200
 
 
 def atualiza():
-    # atualizando o usuario
-    atualizaPersonagem(usuario)
-    limitaPersonagem(usuario)
+    # atualizando o jogador1
+    atualizaPersonagem(jogador1)
+    limitaPersonagem(jogador1)
+    atualizaPersonagem(jogador2)
+    limitaPersonagem(jogador2)
     # atualizando os inimigos
     for ini in inimigos:
         atualizaPersonagem(ini)
@@ -269,10 +278,10 @@ def atualiza():
                         "x": randint(-4, -1), "y": 0}, "raio": randint(10, 20), "cor": (255, 0, 0)})
     contIni += 1
     # derrota
-    # colisao entre o usuario e os inimigos
+    # colisao entre o jogador1 e os inimigos
     global pause
     for ini in inimigos:
-        if colisao(usuario, ini):
+        if colisao(jogador1, ini):
             pause = True
             print("Vc perdeu!")
     # vitoria
@@ -282,14 +291,15 @@ def atualiza():
 
 
 def desenha():
-    desenhaPersonagem(usuario)
+    desenhaPersonagem(jogador1)
+    desenhaPersonagem(jogador2)
     for ini in inimigos:
         desenhaPersonagem(ini)
     for b in balas:
         desenhaBala(b)
 
 
-def interacao_usuario():
+def interacao_jogador1():
     desl = 20
     global pause, vel, ang
     for event in pygame.event.get():
@@ -297,26 +307,26 @@ def interacao_usuario():
             sys.exit()
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
-                usuario["pos"]['y'] -= desl
+                jogador1["pos"]['y'] -= desl
             elif event.key == pygame.K_DOWN:
-                usuario["pos"]['y'] += desl
+                jogador1["pos"]['y'] += desl
             elif event.key == pygame.K_RIGHT:
-            	usuario["vel"]['x'] += 1
+                jogador1["pos"]['x'] += desl
             elif event.key == pygame.K_LEFT:
-            	usuario["vel"]['x'] -= 1
+                jogador1["pos"]['x'] -= desl
             elif event.key == pygame.K_SPACE:
                 pause = not pause
             elif event.key == pygame.K_RETURN:
-                atirar(usuario)
+                atirar(jogador1)
                 pygame.mixer.music.play(1)
                 print(len(balas))
-            elif event.key == pygame.K_a:
+            elif event.key == pygame.K_j:
                 ang += 5
             elif event.key == pygame.K_d:
                 ang -= 5
             elif event.key == pygame.K_w:
                 vel += 3
-            elif event.key == pygame.K_s:
+            elif event.key == pygame.K_q:
                 vel -= 3
             elif event.key == pygame.K_b:
                 salvarArquivo()
@@ -324,21 +334,76 @@ def interacao_usuario():
                 carregarArquivo()
 #        elif event.type == pygame.KEYPRESSED:
 #            if event.key == pygame.K_UP:
-#                usuario["pos"]['y'] -= desl
+#                jogador1["pos"]['y'] -= desl
+
+
+def tentando(jogador):
+    desl = 20
+    global pause, vel, ang
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            sys.exit()
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_w:
+                jogador1["pos"]['y'] -= desl
+            elif event.key == pygame.K_s:
+                jogador1["pos"]['y'] += desl
+            elif event.key == pygame.K_d:
+                jogador1["pos"]['x'] += desl
+            elif event.key == pygame.K_a:
+                jogador1["pos"]['x'] -= desl
+            elif event.key == pygame.K_SPACE:
+                pause = not pause
+
+
+def interacao_jogador2():
+    desl = 20
+    global pause, vel, ang
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            sys.exit()
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_w:
+                jogador1["pos"]['y'] -= desl
+            elif event.key == pygame.K_s:
+                jogador1["pos"]['y'] += desl
+            elif event.key == pygame.K_d:
+                jogador1["pos"]['x'] += desl
+            elif event.key == pygame.K_a:
+                jogador1["pos"]['x'] -= desl
+            elif event.key == pygame.K_SPACE:
+                pause = not pause
+            elif event.key == pygame.K_RETURN:
+                atirar(jogador1)
+                pygame.mixer.music.play(1)
+                print(len(balas))
+            elif event.key == pygame.K_j:
+                ang += 5
+            elif event.key == pygame.K_d:
+                ang -= 5
+            elif event.key == pygame.K_w:
+                vel += 3
+            elif event.key == pygame.K_q:
+                vel -= 3
+            elif event.key == pygame.K_b:
+                salvarArquivo()
+            elif event.key == pygame.K_n:
+                carregarArquivo()
 
 cont = 0
 # framerate = 20
 while True:
-    interacao_usuario()
+    interacao_jogador1()
+    interacao_jogador2()
 
     cor_fundo = (255, 255, 255)
     tela.fill(cor_fundo)
 
     # atualiza todo o cenario
     if not pause:
-    	atualiza()
-    	cont += 1
-    	
+        atualiza()
+        cont += 1
+
     desenha()
 
     pygame.display.update()
