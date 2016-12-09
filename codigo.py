@@ -6,6 +6,16 @@ pygame.init()
 tela = pygame.display.set_mode((800, 600))
 fps = pygame.time.Clock()
 
+# Cores
+preto = (0, 0, 0)
+branco = (255, 255, 255)
+verde = (0, 255, 0)
+vermelho = (255, 0, 0)
+amarelo = (255, 255, 0)
+azul = (0, 0, 255)
+azul_claro = (0, 255, 255)
+roxo = (255, 0, 255)
+
 # Jogadores
 jogador1 = {'posicao': {'x': 40, 'y': 300}, 'raio': 15}
 jogador2 = {'posicao': {'x': 760, 'y': 300}, 'raio': 15}
