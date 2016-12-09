@@ -37,14 +37,26 @@ while True:
             pygame.quit()
 
         elif evento.type == pygame.KEYDOWN:
+
+        	# Interação do Jogador 1
             if evento.key == pygame.K_RIGHT:
-                jogador1["pos"]['x'] += 5
+                jogador1["pos"]['x'] += 10
             elif evento.key == pygame.K_LEFT:
-                jogador1["pos"]['x'] -= 5
+                jogador1["pos"]['x'] -= 10
             elif evento.key == pygame.K_UP:
-                jogador1["pos"]['y'] -= 5
+                jogador1["pos"]['y'] -= 10
             elif evento.key == pygame.K_DOWN:
-                jogador1["pos"]['y'] += 5
+                jogador1["pos"]['y'] += 10
+
+            # Interação Jogador 2
+            elif evento.key == pygame.K_d:
+                jogador2["pos"]['x'] += 10
+            elif evento.key == pygame.K_a:
+                jogador2["pos"]['x'] -= 10
+            elif evento.key == pygame.K_w:
+                jogador2["pos"]['y'] -= 10
+            elif evento.key == pygame.K_s:
+                jogador2["pos"]['y'] += 10
 
     tela.fill(branco)
     desenha_personagem(jogador1, azul)
