@@ -2,12 +2,6 @@ import pygame
 import pygame.gfxdraw
 import math
 
-
-# Adicionar ao github:
-# Tratamento de colisão
-# Função de desenho generalizada
-
-# Inicialização do Pygame
 pygame.init()
 
 tela = pygame.display.set_mode((800, 600))
@@ -49,7 +43,7 @@ def desenha_jogadores(per, raio, cor):
         print('Saiu y')
 
 
-def desenha_bala(bala, raio, cor, vel=30):
+def desenha_bala(bala, raio, cor):
     pygame.gfxdraw.filled_circle(
         tela,
         bala['pos']['x'],
@@ -57,22 +51,26 @@ def desenha_bala(bala, raio, cor, vel=30):
         raio,
         cor)
 
-    bala['vel']['y'] += 1
-    bala['pos'][x] += bala['vel']['x']
-    bala['pos']['y'] += bala['vel']['y']
+    #bala['vel']['y'] += 1
+    #bala['pos'][x] += bala['vel']['x']
+    #bala['pos']['y'] += bala['vel']['y']
 
-    if bala['pos']['y'] - raio < 0:
-        bala['pos']['y'] = 0 + raio
-        #bala['vel']['y'] *= -1
-    if bala['pos']['y'] + raio > 600:
-        bala['pos']['y'] = 600 + raio
-        #bala['vel']['y'] *= -1
-    if bala['pos']['x'] - raio < 0:
-        bala['pos']['x'] = 0 + raio
-        #bala['vel']['x'] *= -1
-    if bala['pos']['y'] - raio > 0:
-        bala['pos']['y'] = 800 - raio
-        #bala['vel']['y'] *= -1
+    # if bala['pos']['y'] - raio < 0:
+    #bala['pos']['y'] = 0 + raio
+    #bala['vel']['y'] *= -1
+    # if bala['pos']['y'] + raio > 600:
+    #bala['pos']['y'] = 600 + raio
+    #bala['vel']['y'] *= -1
+    # if bala['pos']['x'] - raio < 0:
+    #bala['pos']['x'] = 0 + raio
+    #bala['vel']['x'] *= -1
+    # if bala['pos']['y'] - raio > 0:
+    #bala['pos']['y'] = 800 - raio
+    #bala['vel']['y'] *= -1
+
+
+def atirar(jogador):
+    bala['pos']['x'] = jogador['pos']['x'] + jogador['raio']
 
 
 # Tratamento de colisão
@@ -103,6 +101,8 @@ while True:
                 jogador1["pos"]['y'] -= 10
             elif evento.key == pygame.K_DOWN:
                 jogador1["pos"]['y'] += 10
+            elif evento.key == pygame.K_RCTRL:
+                atirar(jogador1)
 
             # Interação Jogador 2
             elif evento.key == pygame.K_d:
