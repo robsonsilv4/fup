@@ -1,4 +1,5 @@
 import pygame
+import pygame.gfxdraw
 
 # Inicialização do Pygame
 pygame.init()
@@ -43,7 +44,7 @@ while True:
             pygame.quit()
 
     tela.fill(branco)
-    desenha_personagem(jogador1, vermelho)
+    desenha_personagem(jogador1, azul)
     desenha_personagem(jogador2, vermelho)
     pygame.display.update()
     fps.tick(30)
