@@ -30,6 +30,15 @@ def desenha_personagem(per, cor):
         per['raio'],
         cor)
 
+    if per['pos']['y'] - per['raio'] < 0:
+    	print("Saiu y")
+    if per['pos']['y'] - per['raio'] > 600:
+    	print('Saiu y')
+    if per['pos']['x'] - per['raio'] < 0:
+    	print('Saiu x')
+    if per['pos']['y'] - per['raio'] > 800:
+    	print('Saiu x')
+
 while True:
     for evento in pygame.event.get():
         if evento.type == pygame.QUIT:
@@ -38,7 +47,7 @@ while True:
 
         elif evento.type == pygame.KEYDOWN:
 
-        	# Interação do Jogador 1
+            # Interação do Jogador 1
             if evento.key == pygame.K_RIGHT:
                 jogador1["pos"]['x'] += 10
             elif evento.key == pygame.K_LEFT:
