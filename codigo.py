@@ -22,12 +22,19 @@ jogador2 = {'pos': {'x': 760, 'y': 300}, 'raio': 15}
 
 
 def desenha_personagem(per, cor):
-    pygame.draw.circle(
+    #pygame.draw.circle(
+    #    tela,
+    #    cor,
+    #    (per['pos']['x'],
+    #     per['pos']['y']),
+    #    per['raio'])
+
+    pygame.gfxdraw.filled_circle(
         tela,
-        cor,
-        (per['pos']['x'],
-         per['pos']['y']),
-        per['raio'])
+        per['pos']['x'],
+        per['pos']['y'],
+        per['raio'],
+        cor)
 
 while True:
     for evento in pygame.event.get():
