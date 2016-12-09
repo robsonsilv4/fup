@@ -23,7 +23,7 @@ jogador2 = {'pos': {'x': 760, 'y': 300}, 'raio': 15}
 
 
 def desenha_personagem(per, cor):
-    #pygame.draw.circle(
+    # pygame.draw.circle(
     #    tela,
     #    cor,
     #    (per['pos']['x'],
@@ -42,6 +42,16 @@ while True:
         if evento.type == pygame.QUIT:
             # Função do Pygame para fechar a janela
             pygame.quit()
+
+        elif evento.type == pygame.KEYDOWN:
+            if evento.key == pygame.K_RIGHT:
+                jogador1["pos"]['x'] += 5
+            elif evento.key == pygame.K_LEFT:
+                jogador1["pos"]['x'] -= 5
+            elif evento.key == pygame.K_UP:
+                jogador1["pos"]['y'] -= 5
+            elif evento.key == pygame.K_DOWN:
+                jogador1["pos"]['y'] += 5
 
     tela.fill(branco)
     desenha_personagem(jogador1, azul)
