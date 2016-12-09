@@ -52,20 +52,20 @@ def desenha_bala(bala, raio, cor):
         cor)
 
     #bala['vel']['y'] += 1
-    #bala['pos'][x] += bala['vel']['x']
+    #bala['pos']['x'] += bala['vel']['x']
     #bala['pos']['y'] += bala['vel']['y']
 
     # if bala['pos']['y'] - raio < 0:
-    #bala['pos']['y'] = 0 + raio
+    #    bala['pos']['y'] = 0 + raio
     #bala['vel']['y'] *= -1
     # if bala['pos']['y'] + raio > 600:
-    #bala['pos']['y'] = 600 + raio
+    #    bala['pos']['y'] = 600 + raio
     #bala['vel']['y'] *= -1
     # if bala['pos']['x'] - raio < 0:
-    #bala['pos']['x'] = 0 + raio
+    #    bala['pos']['x'] = 0 + raio
     #bala['vel']['x'] *= -1
     # if bala['pos']['y'] - raio > 0:
-    #bala['pos']['y'] = 800 - raio
+    #    bala['pos']['y'] = 800 - raio
     #bala['vel']['y'] *= -1
 
 
@@ -113,6 +113,8 @@ while True:
                 jogador2["pos"]['y'] -= 10
             elif evento.key == pygame.K_s:
                 jogador2["pos"]['y'] += 10
+            elif evento.key == pygame.K_f:
+                atirar(jogador2)
 
     tela.fill(branco)
     desenha_jogadores(jogador1, 15, azul)
