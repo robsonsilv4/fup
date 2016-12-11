@@ -27,6 +27,7 @@ ang = 45
 vel = 30
 max_balas = 5
 
+
 def desenha_jogadores(per, raio, cor):
     pygame.gfxdraw.filled_circle(
         tela,
@@ -54,10 +55,12 @@ def desenha_bala(bala, raio, cor):
         raio,
         cor)
 
+
 def ataliza_bala(bala):
     bala['vel']['y'] += 1
     bala['pos']['x'] += bala['vel']['x']
     bala['pos']['y'] += bala['vel']['y']
+
 
 def limita_bala(bala):
     if bala['pos']['y'] - raio < 0:
@@ -73,12 +76,15 @@ def limita_bala(bala):
         bala['pos']['y'] = 800 - raio
         bala['vel']['y'] *= -1
 
-def colisao_bala(bala, jogador):
-    i
+
+def colisao_bala(bala, jog):
+    if colisao(bala, jog) <= jog['raio']:
+        print('Atingiu')
 
 
 def atirar(jogador):
-    bala['pos']['x'] = jogador['pos']['x'] + jogador['raio']
+    b = balas['pos']['x'] = jogador['pos']['x'] + jogador['raio']
+    balas.append(b)
 
 
 def colisao(obj1, obj2):
@@ -130,7 +136,10 @@ while True:
     tela.fill(branco)
     desenha_jogadores(jogador1, 15, azul)
     desenha_jogadores(jogador2, 15, vermelho)
-    # desenha_bala(bala, 5, amarelo)
+    for bal in balas:
+        desenha_bala(bal, 5, amarelo)
+        ataliza_bala()
+        limita_bala()
     colisao_jogs(jogador1, jogador2)
     pygame.display.update()
     fps.tick(30)
